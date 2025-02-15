@@ -9,7 +9,7 @@ on:
     branches: [main]
  
 jobs:
-  Docker_container_build:
+  Docker_dovecot_container_build:
     runs-on: ubuntu-latest
     env:
       DOMAIN: smartquail.io
