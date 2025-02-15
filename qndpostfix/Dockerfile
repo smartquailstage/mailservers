@@ -23,8 +23,7 @@ RUN apk update && apk add --no-cache \
     pcre \
     db \
     gdbm \
-    opendkim \
-    opendkim-tools
+    opendkim 
 
 # Create postfix, vmail, and opendkim users and groups if they do not exist
 RUN addgroup -g 1001 postfix || true \
