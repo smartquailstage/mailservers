@@ -57,7 +57,7 @@ EXPOSE 25 465 587 8891
 VOLUME ["/var/mail/"]
 
 # Define entrypoint script to start both OpenDKIM and Postfix
-COPY postfix/start2.sh /usr/local/bin/start2.sh
-RUN chmod +x /usr/local/bin/start2.sh
+COPY postfix/start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh
 
-ENTRYPOINT ["/usr/local/bin/start2.sh"]
+ENTRYPOINT ["/usr/local/bin/start.sh"]
