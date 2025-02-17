@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Configuración de las credenciales de PostgreSQL
-export PGPASSWORD="smartquaildev1719pass"
-export PGUSER="sqadmindb"
-export POSTFIX_POSTGRES_DB="QND41DB"
-export POSTFIX_POSTGRES_USER="sqadmindb"
-export POSTFIX_POSTGRES_HOST="Support1719@"
+export PGPASSWORD=${POSTFIX_PASSWORD_DB}
+export PGUSER=${POSTFIX_USER_DB}
+export POSTFIX_POSTGRES_DB=${POSTFIX_DB}
+export POSTFIX_POSTGRES_USER=${POSTFIX_USER_DB}
+export POSTFIX_POSTGRES_HOST=${POSTFIX_DB_HOST}
 
 function log {
   echo "$(date) $ME - $@"
@@ -172,10 +172,10 @@ function serviceStart {
   /usr/sbin/postfix start-fg
 }
 
-export DOMAIN=${DOMAIN:-"mail.smartquail.io"}
-export HOSTNAME=${HOSTNAME:-"mail.smartquail.io"}
-export MESSAGE_SIZE_LIMIT=${MESSAGE_SIZE_LIMIT:-"50000000"}
-export RELAYNETS=${RELAYNETS:-""}
-export RELAYHOST=${RELAYHOST:-""}
+export DOMAIN=${DOMAIN}
+export HOSTNAME=${HOSTNAME}
+export MESSAGE_SIZE_LIMIT=${MESSAGE_SIZE_LIMIT}
+export RELAYNETS=${RELAY_NETWORKS}
+export RELAYHOST=${POSTFIX_RELAY}
 
 serviceStart &>> /proc/1/fd/1
