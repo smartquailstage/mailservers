@@ -3,9 +3,9 @@
 # Configuración de las credenciales de PostgreSQL
 export PGPASSWORD="smartquaildev1719pass"
 export PGUSER="sqadmindb"
-export POSTFIX_POSTGRES_DB="POSFIXDB"
+export POSTFIX_POSTGRES_DB="QND41DB"
 export POSTFIX_POSTGRES_USER="sqadmindb"
-export POSTFIX_POSTGRES_HOST="smartquaildb"
+export POSTFIX_POSTGRES_HOST="Support1719@"
 
 function log {
   echo "$(date) $ME - $@"
