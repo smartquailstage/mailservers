@@ -26,6 +26,30 @@ RUN apk update && apk add --no-cache \
     opendkim 
 
 
+# Create postfix, vmail, and opendkim users and groups if they do not exist
+RUN addgroup -g 1001 postfix || true \
+    && adduser -D -u 1001 -G postfix -s /sbin/nologin postfix || true \
+    && addgroup -g 1002 vmail || true \
+    && adduser -D -u 1002 -G vmail -s /sbin/nologin vmail || true \
+    && addgroup -g 1003 opendkim || true \
+    && adduser -D -u 1003 -G opendkim -s /sbin/nologin opendkim || true
+
+# Create necessary directories and set permissions
+RUN mkdir -p /var/spool/postfix/private /var/mail/{cur,new,tmp} \
+    && mkdir -p /etc/opendkim /etc/ssl/certs /etc/ssl/private \
+    # Set ownership and permissions for /var/spool/postfix
+    && chown -R postfix:postfix /var/spool/postfix \
+    && chmod 750 /var/spool/postfix/private \
+    && chmod 750 /var/spool/postfix \
+    # Set ownership and permissions for /var/mail
+    && chown -R vmail:vmail /var/mail \
+    && chmod 700 /var/mail \
+    # Set permissions for SSL certificates
+    && chmod 700 /etc/ssl/private \
+    && chown root:root /etc/ssl/certs /etc/ssl/private \
+    # Set permissions for OpenDKIM
+    && chown -R opendkim:opendkim /etc/opendkim
+
 
 
 # Expose the necessary ports for SMTP, secure connections and OpenDKIM
