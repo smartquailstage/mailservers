@@ -56,6 +56,9 @@ COPY postfix/virtual /etc/postfix/virtual
 COPY postfix/main.cf /etc/postfix/main.cf
 COPY postfix/master.cf /etc/postfix/master.cf
 COPY postfix/sasl_passwd /etc/postfix/
+COPY postfix/sql/virtual_alias_maps.cf etc/postfix/sql/virtual_alias_maps.cf 
+COPY postfix/sql/virtual_mailbox_domains.cf etc/postfix/sql/virtual_mailbox_domains.cf 
+COPY postfix/sql/virtual_mailbox_maps.cf etc/postfix/sql/virtual_mailbox_maps.cf 
 
 
 
