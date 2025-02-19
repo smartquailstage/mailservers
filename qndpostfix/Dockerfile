@@ -50,12 +50,7 @@ RUN mkdir -p /var/spool/postfix/private /var/mail/{cur,new,tmp} \
     # Set permissions for OpenDKIM
     && chown -R opendkim:opendkim /etc/opendkim
 
-# Copy configuration files
-COPY postfix/transport.pcre /etc/postfix/transport.pcre
-COPY postfix/virtual /etc/postfix/virtual
-COPY postfix/main.cf /etc/postfix/main.cf
-COPY postfix/master.cf /etc/postfix/master.cf
-COPY postfix/sasl_passwd /etc/postfix/
+
 
 
 
