@@ -3,10 +3,7 @@ FROM alpine:3.16
 
 LABEL maintainer="your-email@example.com"
 
-ENV POSTFIX_USER_DB="suppor" 
-ENV POSTFIX_PASSWORD_DB="Ms95355672@"
-ENV POSTFIX_DB ="QND41DB"
-ENV POSTFIX_DB_HOST="smartquaildb"
+
 
 
 ENV container=docker \
