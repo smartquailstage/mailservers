@@ -7,8 +7,8 @@ function log {
 }
 
 function addUserInfo {
-  local user_name="info"
-  local user_maildir="/var/mail/juansilvaphoto.com/${user_name}"
+  local user_name="support"
+  local user_maildir="/var/mail/smartquail.io/${user_name}"
 
   # Verifica si el usuario ya existe
   if ! id -u "$user_name" &>/dev/null; then
