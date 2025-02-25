@@ -1,7 +1,7 @@
-user = $POSTFIX_USER_DB
-password = $POSTFIX_PASSWORD_DB
-dbname = $POSTFIX_DB 
-hosts = $POSTFIX_DB_HOST
+user = POSTFIX_USER_DB
+password = POSTFIX_PASSWORD_DB
+dbname = POSTFIX_DB 
+hosts = POSTFIX_DB_HOST
 
 # Query para verificar la existencia de un buzón de correo
 query = SELECT 1 FROM virtual_users WHERE email='%s'
