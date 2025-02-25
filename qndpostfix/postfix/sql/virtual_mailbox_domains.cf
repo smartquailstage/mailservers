@@ -1,7 +1,7 @@
-user = {{ POSTFIX_USER_DB }}
-password = {{ POSTFIX_PASSWORD_DB }}
-dbname = {{ POSTFIX_DB }}
-hosts = {{ POSTFIX_DB_HOST }}
+user = $POSTFIX_USER_DB
+password = $POSTFIX_PASSWORD_DB
+dbname = $POSTFIX_DB 
+hosts = $POSTFIX_DB_HOST
 
 # Query para obtener el dominio de un buzón de correo
 query = SELECT domain FROM virtual_domains WHERE domain='%s'
