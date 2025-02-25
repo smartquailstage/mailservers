@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# Configuración de las credenciales de PostgreSQL
+export PGPASSWORD="Support1719@"
+
+export POSTFIX_DB="QND41DB"
+export PPOSTFIX_USER_DB="sqadmindb"
+export POSTFIX_DB_HOST="smartquaildb"
+
+
 
 
 function log {
