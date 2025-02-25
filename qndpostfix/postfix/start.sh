@@ -31,6 +31,73 @@ function addUserInfo {
 }
 
 
+function createTable {
+  local table_name=$1
+  local table_sql=$2
+
+  log "Creating ${table_name} table in PostgreSQL..."
+
+  # Check if table exists
+  local check_sql="SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_schema = 'public' AND table_name = '${table_name}');"
+  local table_exists=$(psql -U "$POSTFIX_USER_DB" -d "$POSTFIX_DB" -h "$POSTFIX_DB_HOST" -t -c "$check_sql")
+
+  if [[ "$table_exists" =~ ^t$ ]]; then
+    log "Table ${table_name} already exists, skipping creation."
+  else
+    psql -U "$POSTFIX_USER_DB" -d "$POSTFIX_DB" -h "$POSTFIX_DB_HOST" -c "$table_sql"
+    if [ $? -eq 0 ]; then
+      log "${table_name} table created successfully."
+    else
+      log "Failed to create ${table_name} table."
+    fi
+  fi
+}
+
+function createVirtualTables {
+  createTable "virtual_domains" "CREATE TABLE IF NOT EXISTS virtual_domains (
+    id SERIAL PRIMARY KEY,
+    domain VARCHAR(255) NOT NULL UNIQUE
+  );"
+
+  createTable "virtual_aliases" "CREATE TABLE IF NOT EXISTS virtual_aliases (
+    id SERIAL PRIMARY KEY,
+    domain_id INT NOT NULL,
+    source VARCHAR(255) NOT NULL,
+    destination VARCHAR(255) NOT NULL,
+    FOREIGN KEY (domain_id) REFERENCES virtual_domains(id) ON DELETE CASCADE
+  );"
+
+  createTable "virtual_users" "CREATE TABLE IF NOT EXISTS virtual_users (
+    id SERIAL PRIMARY KEY,
+    domain_id INT NOT NULL,
+    password VARCHAR(106) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    FOREIGN KEY (domain_id) REFERENCES virtual_domains(id) ON DELETE CASCADE
+  );"
+}
+
+function insertInitialData {
+  log "Inserting initial data into PostgreSQL tables..."
+
+  local insert_sql="
+    INSERT INTO virtual_domains (domain) VALUES ('mail.smartquail.io') ON CONFLICT DO NOTHING;
+    INSERT INTO virtual_users (domain_id, email, password) VALUES 
+      ((SELECT id FROM virtual_domains WHERE domain = 'mail.smartquail.io'), 'support@mail.smartquail.io', 'Ms95355672@') 
+    ON CONFLICT DO NOTHING;
+    INSERT INTO virtual_aliases (domain_id, source, destination) VALUES 
+      ((SELECT id FROM virtual_domains WHERE domain = 'mail.smartquail.io'), 'support@mail.smartquail.io', 'support') 
+    ON CONFLICT DO NOTHING;
+  "
+
+  psql -U "$POSTFIX_USER_DB" -d "$POSTFIX_DB" -h "$POSTFIX_DB_HOST" -c "$insert_sql"
+
+  if [ $? -eq 0 ]; then
+    log "Initial data inserted successfully."
+  else
+    log "Failed to insert initial data."
+  fi
+}
+
 
 function serviceConf {
   if [[ ! $HOSTNAME =~ \. ]]; then
@@ -84,6 +151,8 @@ function setPermissions {
 
 function serviceStart {
   addUserInfo
+  createVirtualTables
+  insertInitialData
   serviceConf
   setPermissions
   log "[ Iniciando Postfix... ]"
