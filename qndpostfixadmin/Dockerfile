@@ -72,5 +72,8 @@ RUN set -eu; \
 COPY docker-entrypoint.sh  /usr/local/bin/
 COPY config.local.php /var/www/html/postfixadmin/config.local.php
 
+# Make sure the entrypoint script is executable
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 CMD ["apache2-foreground"]
