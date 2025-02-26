@@ -69,8 +69,8 @@ RUN set -eu; \
 	mkdir -p /usr/src/postfixadmin/templates_c; \
 	chown -R www-data:www-data /usr/src/postfixadmin
 
-COPY docker.sh /usr/local/bin/
+COPY docker-entrypoint.sh  /usr/local/bin/
 COPY config.local.php /var/www/html/postfixadmin/config.local.php
 
-ENTRYPOINT ["/usr/local/bin/docker.sh"]
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 CMD ["apache2-foreground"]
