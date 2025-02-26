@@ -70,7 +70,7 @@ RUN set -eu; \
 	chown -R www-data:www-data /usr/src/postfixadmin
 
 COPY docker-entrypoint.sh  /usr/local/bin/
-COPY config.local.php /var/www/html/postfixadmin/config.local.php
+COPY config.local.php /var/www/html/config.local.php
 
 # Make sure the entrypoint script is executable
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
