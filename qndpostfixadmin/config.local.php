@@ -2,7 +2,7 @@
 // Variables de entorno desde los secretos de Kubernetes
 $CONF['database_type'] = getenv('POSTFIXADMIN_DB_TYPE') ?: 'sqlite';  // Tipo de base de datos
 $CONF['database_host'] = getenv('POSTFIXADMIN_DB_HOST') ?: '';  // Dirección del servidor de base de datos
-$CONF['database_port'] = getenv('POSTFIXADMIN_DB_PORT') ?: '';  // Puerto del servidor de base de datos
+$CONF['database_port'] =5432;  // Puerto del servidor de base de datos
 $CONF['database_user'] = getenv('POSTFIXADMIN_DB_USER') ?: '';  // Usuario de la base de datos
 $CONF['database_password'] = getenv('POSTFIXADMIN_DB_PASSWORD') ?: '';  // Contraseña de la base de datos
 $CONF['database_name'] = '/var/tmp/postfixadmin.db';  // Nombre de la base de datos (por defecto para SQLite)

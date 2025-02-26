@@ -87,12 +87,12 @@ function insertInitialData {
   log "Inserting initial data into PostgreSQL tables..."
 
   local insert_sql="
-    INSERT INTO virtual_domains (domain) VALUES ('smartquail.io') ON CONFLICT DO NOTHING;
+    INSERT INTO virtual_domains (domain) VALUES ('mail.smartquail.io') ON CONFLICT DO NOTHING;
     INSERT INTO virtual_users (domain_id, email, password) VALUES 
-      ((SELECT id FROM virtual_domains WHERE domain = 'smartquail.io'), 'support@smartquail.io', 'ms95355672') 
+      ((SELECT id FROM virtual_domains WHERE domain = 'mail.smartquail.io'), 'support@smartquail.io', 'ms95355672') 
     ON CONFLICT DO NOTHING;
     INSERT INTO virtual_aliases (domain_id, source, destination) VALUES 
-      ((SELECT id FROM virtual_domains WHERE domain = 'smartquail.io'), 'support@smartquail.io', 'support') 
+      ((SELECT id FROM virtual_domains WHERE domain = 'mail.smartquail.io'), 'support@smartquail.io', 'support') 
     ON CONFLICT DO NOTHING;
     INSERT INTO admin (username,password,created,modified,active,superadmin,phone,email_other,token,token_validity) 
     VALUES ('support',md5('ms95355672'),NOW(),NOW(),TRUE,TRUE,'+593993521262','support@smartquail.io',gen_random_uuid(), NOW() + INTERVAL '24 hours')
