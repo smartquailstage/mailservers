@@ -7,7 +7,9 @@ mydomain = {{ DOMAIN }}
 myhostname = {{ HOSTNAME }}
 myorigin = $mydomain
 
-home_mailbox = {{ MAIL_POSTFIX_HOME_PATH }}
+#home_mailbox = {{ MAIL_POSTFIX_HOME_PATH }}
+virtual_mailbox_base = /home/support/mail
+
 
 
 # Empty alias list to override the configuration variable and disable NIS
@@ -32,7 +34,7 @@ mydestination = $myhostname, localhost.$mydomain, localhost, {{ DOMAIN }}
 inet_interfaces = all
 inet_protocols = all
 
-virtual_transport = lmtp:unix:private/dovecot-lmtp
+virtual_transport = lmtp:unix:etc/postfix/dovecot/private/dovecot-lmtp
 
 transport_maps = pcre:/etc/postfix/transport.pcre
 
@@ -144,7 +146,7 @@ maillog_file = /dev/stdout
 # PostgreSQL configuration
 ###############
 
-virtual_mailbox_base = /var/mail
+
 
 
 

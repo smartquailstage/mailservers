@@ -61,9 +61,9 @@ RUN apt-get -y update && \
     dpkg-reconfigure -f noninteractive tzdata
 
 # Configurar permisos y propiedad para directorios
-RUN mkdir -p /var/mail/info@smartquail.io/tmp && \
-    chown -R vmail:vmail /var/mail && \
-    chmod -R 755 /var/mail
+RUN mkdir -p /home/support/mail && \
+    chown -R vmail:vmail /home/support/mail && \
+    chmod -R 700 /home/support/mail
 
 EXPOSE 24
 EXPOSE 110

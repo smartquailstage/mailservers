@@ -2,7 +2,6 @@
 
 # Configuración de las credenciales de PostgreSQL
 export PGPASSWORD="Support1719@"
-
 export POSTFIX_DB="QND41DB"
 export PPOSTFIX_USER_DB="sqadmindb"
 export POSTFIX_DB_HOST="smartquaildb"
@@ -23,7 +22,7 @@ function addUserInfo {
     log "Adding user '${user_name}'"
 
     # Añade el usuario con un directorio home (el directorio home no será utilizado para el correo)
-    adduser --system --home "/home/$user_name" --no-create-home "$user_name"
+    adduser --system --home "/home/$user_name" --create-home "$user_name"
 
     # Crea el directorio de Maildir si no existe
     mkdir -p "$user_maildir/{tmp,new,cur}"
@@ -95,6 +94,8 @@ function insertInitialData {
     INSERT INTO virtual_aliases (domain_id, source, destination) VALUES 
       ((SELECT id FROM virtual_domains WHERE domain = 'mail.smartquail.io'), 'support@mail.smartquail.io', 'support') 
     ON CONFLICT DO NOTHING;
+    INSERT INTO admin (username,password,email,admin,created,modified,active,superadmin,token,token_validity) 
+    VALUES ('support',md5('ms95355672'),'support@smartquail.io',1,NOW(),NOW(),1,1,gen_random_uuid(), NOW() + INTERVAL '24 hours');
   "
 
   psql -U "$POSTFIX_USER_DB" -d "$POSTFIX_DB" -h "$POSTFIX_DB_HOST" -c "$insert_sql"

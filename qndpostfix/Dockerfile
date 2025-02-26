@@ -45,8 +45,9 @@ RUN mkdir -p /var/spool/postfix/private /var/mail/{cur,new,tmp} \
     && chmod 750 /var/spool/postfix/private \
     && chmod 750 /var/spool/postfix \
     # Set ownership and permissions for /var/mail
-    && chown -R vmail:vmail /var/mail \
-    && chmod 700 /var/mail \
+    && mkdir -p /home/support/mail \
+    && chown -R vmail:vmail /home/support/mail \
+    && chmod 700 /home/support/mail \
     # Set permissions for SSL certificates
     && chmod 700 /etc/ssl/private \
     && chown root:root /etc/ssl/certs /etc/ssl/private \
