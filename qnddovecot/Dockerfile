@@ -54,8 +54,8 @@ RUN apt-get -y update && \
     mkdir -p /var/mail && \
     chown vmail:vmail /var/mail && \
     chmod 755 /var/mail && \
-    mkdir -p /var/spool/postfix/private && \
-    chown vmail:vmail /var/spool/postfix/private && \
+    mkdir -p /var/spool/dovecot/private && \
+    chown vmail:vmail /var/spool/dovecot/private && \
     # Configurar la zona horaria
     ln -fs /usr/share/zoneinfo/$TZ /etc/localtime && \
     dpkg-reconfigure -f noninteractive tzdata
