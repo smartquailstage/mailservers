@@ -15,7 +15,7 @@ function log {
 
 function addUserInfo {
   local user_name="support"
-  local user_maildir="/var/mail/smartquail.io/${user_name}"
+  local user_maildir="/home/${user_name}/mail/Maildir/"
 
   # Verifica si el usuario ya existe
   if ! id -u "$user_name" &>/dev/null; then
