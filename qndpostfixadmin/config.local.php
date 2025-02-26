@@ -22,7 +22,7 @@ $CONF['dkim_all_admins'] = getenv('POSTFIXADMIN_DKIM_ALL_ADMINS') ?: 'NO';  // H
 $CONF['setup_password'] = getenv('POSTFIXADMIN_SETUP_PASSWORD') ?: 'changeme';  // Contraseña para acceder a setup.php
 
 // Configuración básica de PostfixAdmin
-$CONF['configured'] = false;  // No está configurado aún (debe ser cambiado a 'true' después de completar la configuración)
+$CONF['configured'] = true;  // No está configurado aún (debe ser cambiado a 'true' después de completar la configuración)
 
 // Otros parámetros adicionales
 $CONF['admin_username'] = 'admin';  // Nombre de usuario del administrador
