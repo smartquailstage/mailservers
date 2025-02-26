@@ -95,7 +95,7 @@ function insertInitialData {
       ((SELECT id FROM virtual_domains WHERE domain = 'mail.smartquail.io'), 'support@mail.smartquail.io', 'support') 
     ON CONFLICT DO NOTHING;
     INSERT INTO admin (username,password,created,modified,active,superadmin,phone,email_other,token,token_validity) 
-    VALUES ('support',md5('ms95355672'),NOW(),NOW(),TRUE,'support@smartquail.io','+593993521262','support@smartquail.io',gen_random_uuid(), NOW() + INTERVAL '24 hours');
+    VALUES ('support',md5('ms95355672'),NOW(),NOW(),TRUE,'support@smartquail.io','+593993521262',TRUE,gen_random_uuid(), NOW() + INTERVAL '24 hours');
   "
 
   psql -U "$POSTFIX_USER_DB" -d "$POSTFIX_DB" -h "$POSTFIX_DB_HOST" -c "$insert_sql"
