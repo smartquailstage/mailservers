@@ -6,7 +6,8 @@ export POSTFIX_DB="QND41DB"
 export PPOSTFIX_USER_DB="sqadmindb"
 export POSTFIX_DB_HOST="smartquaildb"
 
-
+VUSER="support"
+DOMAIN="smartquail.io"
 
 
 function log {
@@ -15,7 +16,7 @@ function log {
 
 function addUserInfo {
   local user_name="support"
-  local user_maildir="/home/${user_name}/mail/Maildir/"
+  local user_maildir="/home/${user_name}/mail/${DOMAIN}/${VUSER}/Maildir/"
 
   # Verifica si el usuario ya existe
   if ! id -u "$user_name" &>/dev/null; then
@@ -179,6 +180,7 @@ function serviceStart {
   serviceConf
   setPermissions
   log "[ Iniciando Postfix... ]"
+  /usr/sbin/opendkim -x /etc/opendkim/opendkim.conf 
   /usr/sbin/postfix start-fg
 }
 

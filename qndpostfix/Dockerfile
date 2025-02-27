@@ -61,7 +61,11 @@ COPY postfix/main.cf /etc/postfix/main.cf
 COPY postfix/master.cf /etc/postfix/master.cf
 COPY postfix/sasl_passwd /etc/postfix/
 COPY postfix /etc/postfix
-
+#Copy Opendkim
+COPY opendkim/opendkim.conf /etc/opendkim/opendkim.conf 
+COPY opendkim/KeyTable /etc/opendkim/KeyTable  
+COPY opendkim/SigningTable /etc/opendkim/SigningTable
+COPY opendkim/TrustedHosts /etc/opendkim/TrustedHosts  
 
 
 
