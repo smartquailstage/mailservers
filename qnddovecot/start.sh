@@ -52,4 +52,7 @@ ls -ld "$INFO_DIR"
 
 echo "Permissions and ownership have been set."
 
-tail -f /var/log/mail.log
+tail -f /var/log/dovecot.log
+
+# Ensure that Dovecot is running in the foreground (this might be preferred for Docker containers)
+exec dovecot -F
