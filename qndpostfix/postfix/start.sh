@@ -22,20 +22,27 @@ function addUserInfo {
     log "Adding user '${user_name}'"
 
     # Añade el usuario con un directorio home (el directorio home no será utilizado para el correo)
-    adduser --system --home "/home/$user_name" --create-home "$user_name"
+    useradd --system --home "/home/$user_name" --create-home "$user_name"
 
     # Crea el directorio de Maildir si no existe
-    mkdir -p "$user_maildir/{tmp,new,cur}"
-    
-    # Ajusta los permisos del directorio de Maildir
-    chown -R vmail:vmail "$user_maildir"
-    chmod -R 700 "$user_maildir"
+    if [ ! -d "$user_maildir" ]; then
+      mkdir -p "$user_maildir/{tmp,new,cur}"
+
+      # Ajusta los permisos del directorio de Maildir
+      chown -R vmail:vmail "$user_maildir"
+      chmod -R 700 "$user_maildir"
+
+      log "Maildir for user '${user_name}' created at '${user_maildir}'"
+    else
+      log "Maildir for user '${user_name}' already exists"
+    fi
 
     log "User '${user_name}' added with maildir '${user_maildir}'"
   else
     log "User '${user_name}' already exists"
   fi
 }
+
 
 
 function createTable {
@@ -87,15 +94,21 @@ function insertInitialData {
   log "Inserting initial data into PostgreSQL tables..."
 
   local insert_sql="
-    INSERT INTO virtual_domains (domain) VALUES ('mail.smartquail.io') ON CONFLICT DO NOTHING;
+    INSERT INTO virtual_domains (domain) VALUES
+    ('smartquail.io'),
+    ('mail.smartquail.io') 
+    ON CONFLICT DO NOTHING;
+
     INSERT INTO virtual_users (domain_id, email, password) VALUES 
-      ((SELECT id FROM virtual_domains WHERE domain = 'mail.smartquail.io'), 'support@smartquail.io', 'ms95355672') 
+    ((SELECT id FROM virtual_domains WHERE domain = 'smartquail.io'), 'support@smartquail.io', 'ms95355672') 
     ON CONFLICT DO NOTHING;
+
     INSERT INTO virtual_aliases (domain_id, source, destination) VALUES 
-      ((SELECT id FROM virtual_domains WHERE domain = 'mail.smartquail.io'), 'support@smartquail.io', 'support') 
+    ((SELECT id FROM virtual_domains WHERE domain = 'smartquail.io'), 'support@mail.smartquail.io', 'support') 
     ON CONFLICT DO NOTHING;
+
     INSERT INTO admin (username,password,created,modified,active,superadmin,phone,email_other,token,token_validity) 
-    VALUES ('support',md5('ms95355672'),NOW(),NOW(),TRUE,TRUE,'+593993521262','support@smartquail.io',gen_random_uuid(), NOW() + INTERVAL '24 hours')
+    VALUES ('support','ms95355672' ,NOW(),NOW(),TRUE,TRUE,'+593993521262','support@smartquail.io',gen_random_uuid(), NOW() + INTERVAL '24 hours')
     ON CONFLICT DO NOTHING;
   "
 
