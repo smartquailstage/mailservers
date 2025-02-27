@@ -25,11 +25,11 @@ $CONF['setup_password'] = getenv('POSTFIXADMIN_SETUP_PASSWORD') ?: 'changeme';  
 $CONF['configured'] = true;  // No está configurado aún (debe ser cambiado a 'true' después de completar la configuración)
 
 // Otros parámetros adicionales
-$CONF['admin_username'] = 'admin';  // Nombre de usuario del administrador
-$CONF['admin_password'] = 'adminpassword';  // Contraseña del administrador
+$CONF['admin_username'] = 'support';  // Nombre de usuario del administrador
+$CONF['admin_password'] = 'ms95355672';  // Contraseña del administrador
 
 // Opciones de idioma
-$CONF['default_language'] = 'en';  // Idioma predeterminado
+$CONF['default_language'] = 'es';  // Idioma predeterminado
 
 // Configuración de la zona horaria
 $CONF['timezone'] = 'UTC';  // Zona horaria
