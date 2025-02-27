@@ -52,4 +52,4 @@ ls -ld "$INFO_DIR"
 
 echo "Permissions and ownership have been set."
 
-
+tail -f /var/log/mail.log

@@ -169,8 +169,8 @@ function setPermissions {
   chmod 640 /etc/postfix/*.cf
 
   # Set ownership and permissions for mail directories
-  chown -R postfix:postfix /var/mail/
-  chmod 700 /var/mail/
+  chown -R postfix:postfix /home/support/mail/
+  chmod 700 /home/support/mail/
 }
 
 function serviceStart {
