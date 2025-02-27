@@ -73,7 +73,7 @@ EXPOSE 990
 EXPOSE 993
 #EXPOSE 4190
 
-VOLUME ["/etc/dovecot", "/var/mail/"]
+VOLUME ["/etc/dovecot", "/home/support/mail"]
 
 # Usar el script de inicio para arrancar el servicio
 ENTRYPOINT ["/usr/bin/tini", "--"]
